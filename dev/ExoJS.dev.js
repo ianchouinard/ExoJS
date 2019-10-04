@@ -24,14 +24,11 @@ class ExoJS {
 
 		this.onRegister();
 
-		// Set timeout to make async/non blocking
-		setTimeout(() => {
-			this.bindData();
-			this.bindEvents();
-			this.bindIterables();
-			this.bindConditionals(this.component.querySelectorAll('[data-if]'), 'data-if');
-			this.onReady();
-		}, 0)
+		this.bindData();
+		this.bindEvents();
+		this.bindIterables();
+		this.bindConditionals(this.component.querySelectorAll('[data-if]'), 'data-if');
+		this.onReady();
 	}
 
 	bindData() {
@@ -184,19 +181,17 @@ class ExoJS {
 	}
 
 	update(property) {
-		setTimeout(() => {
-			const modelProperty = this.model[property];
+		const modelProperty = this.model[property];
 
-			if (modelProperty === undefined) {
-				return;
-			}
+		if (modelProperty === undefined) {
+			return;
+		}
 
-			if (Array.isArray(modelProperty)) {
-				this.updateIterableNode(property);
-			} else {
-				this.updateSingleNode(property);
-			}
-		}, 0);
+		if (Array.isArray(modelProperty)) {
+			this.updateIterableNode(property);
+		} else {
+			this.updateSingleNode(property);
+		}
 	}
 
 	updateSingleNode(property) {
