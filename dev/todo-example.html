@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ExoJS testing</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
+        body {
+            background: #f2f2f2;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #todo h1 {
+            margin: 0;
+            padding: 0 0 5px 0;
+            font-size: 16px;
+            color: #282828;
+            text-align: center;
+        }
+
+        #todo {
+            padding: 15px;
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+            border-radius: 4px;
+        }
+
+        #todo form {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+
+        #todo form label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #282828;
+        }
+
+        #todo form input {
+            padding: 5px;
+            border: none;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.45);
+            background: #f4f4f4;
+            border-radius: 4px;
+        }
+
+        #todo button {
+            background: #2890EB;
+            color: #fff;
+            border: none;
+            outline: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            height: 28px;
+        }
+
+        #todo form button {
+            margin-left: 10px;
+        }
+
+        #todo .task {
+            padding: 5px 5px 20px 5px;
+            border-top: 1px solid #ddd;
+        }
+
+        #todo .task-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        #todo .task.complete {
+            background: #1EC26A;
+        }
+
+        #todo .task.complete button {
+            background: #fff;
+            color: #333;
+        }
+
+        #todo .todo-complete {
+            font-size: 12px;
+            margin-top: -10px;
+            display: flex;
+            align-items: center;
+        }
+
+        #todo .todo-complete span {
+            font-weight: 700;
+            margin-left: 10px;
+        }
+    </style>
+
+    <div data-exo-component="todo" id="todo">
+        <h1>
+            To do list with ExoJS
+        </h1>
+
+        <form data-action="onsubmit:addTask">
+            <div>
+                <label>Task Name</label>
+                <input type="text" data-action="onchange:setTaskName" data-model="taskName" placeholder="enter name" />
+            </div>
+            <button>
+                Add Task
+            </button>
+        </form>
+
+        <div data-foreach="tasks"></div>
+
+    </div>
+
+
+    <script src="ExoJS.dev.js"></script>
+    <script>
+        class Todo extends ExoJS {
+
+            onRegister() {
+                this.registerIterableTemplate('tasks', (item) => (`
+                    <div data-item-for="tasks" class="task ${item.complete ? 'complete' : ''}">
+                        <div class="task-inner">
+                            <div>
+                                <p data-model-for="tasks:name">${item.name}</p>
+                            </div>
+                            <div>
+                                <button data-action="onclick:removeTask">remove</button>
+                            </div>
+                        </div>
+                        <div class="todo-complete">
+                            <input type="checkbox" data-model-for="tasks:complete" ${item.complete ? 'checked' : ''} data-action="onchange:completeTask" />
+                            <label>Complete?</label>
+                            <span data-if-for="tasks:complete">Yes</span>
+                        </div>
+                    </div>
+                `));
+            }
+
+            setTaskName(e) {
+                this.model.taskName = e.target.value;
+            }
+
+            addTask(e) {
+                e.preventDefault();
+
+                if (!this.model.taskName || this.model.taskName === '') {
+                    return;
+                }
+
+                this.model.tasks.push({
+                    name: this.model.taskName,
+                    complete: false
+                });
+                this.model.taskName = '';
+
+                this.update('tasks');
+                this.update('taskName');
+            }
+
+            removeTask(e, task, taskIndex) {
+                e.preventDefault();
+                this.model.tasks.splice(taskIndex, 1);
+                this.update('tasks');
+            }
+
+            completeTask(e, task, taskIndex) {
+                e.preventDefault();
+                this.model.tasks[taskIndex].complete = e.target.checked;
+                this.update('tasks');
+            }
+
+        }
+
+        const todo = new Todo('todo');
+        todo.attach();
+
+    </script>
+</body>
+
+</html>

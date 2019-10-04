@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ExoJS testing</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
+        body {
+            background: #f2f2f2;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        [data-exo-component="form-test"] form {
+            padding: 15px;
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+            border-radius: 4px;
+        }
+
+        [data-exo-component="form-test"] form>div {
+            margin-bottom: 10px;
+        }
+
+        [data-exo-component="form-test"] form>.field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        [data-exo-component="form-test"] form>div input+span {
+            display: block;
+            color: red;
+            font-size: 12px;
+        }
+
+        [data-exo-component="form-test"] .remember-msg {
+            color: #777;
+            font-size: 12px;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        [data-exo-component="form-test"] button {
+            background: #2890EB;
+            color: #fff;
+            border: none;
+            outline: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            height: 28px;
+            cursor: pointer;
+        }
+    </style>
+    <div data-exo-component="form-test">
+
+        <form data-action="onsubmit:login">
+            <div class="field">
+                <label for="username">Username *</label>
+                <input id="username" data-model="name" data-action="onchange:setUsername" />
+                <span data-model="nameError"></span>
+            </div>
+
+            <div class="field">
+                <label for="password">Password *</label>
+                <input id="password" type="password" data-model="password" data-action="onchange:setPassword" />
+                <span data-model="passwordError"></span>
+            </div>
+
+            <div>
+                <input id="remember" type="checkbox" data-model="rememberMe" data-action="onchange:setRememberMe" />
+                <label for="remember">Remember Me</label>
+
+                <div class="remember-msg" data-if="rememberMe" style="display: none;">
+                    Your login credentials will be saved.
+                </div>
+            </div>
+
+            <button>
+                Submit
+            </button>
+        </form>
+
+    </div>
+
+    <script src="ExoJS.dev.js"></script>
+    <script>
+        class LoginForm extends ExoJS {
+
+            setUsername(e) {
+                this.model.name = e.target.value;
+            }
+
+            setPassword(e) {
+                this.model.password = e.target.value;
+            }
+
+            setRememberMe(e) {
+                this.model.rememberMe = e.target.checked;
+                this.update('rememberMe');
+            }
+
+            login(e) {
+                e.preventDefault();
+                let valid = true;
+
+                if (!this.model.name || this.model.name === '') {
+                    valid = false;
+                    this.model.nameError = 'Name is required';
+                } else {
+                    this.model.nameError = '';
+                }
+
+                if (!this.model.password || this.model.password === '') {
+                    valid = false;
+                    this.model.passwordError = 'Password is required';
+                } else {
+                    this.model.passwordError = '';
+                }
+
+                this.update('nameError');
+                this.update('passwordError');
+
+                if (valid) {
+                    alert('submit form');
+                }
+            }
+
+        }
+
+        const loginForm = new LoginForm('form-test');
+        loginForm.attach();
+    </script>
+</body>
+
+</html>

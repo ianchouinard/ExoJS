@@ -1,0 +1,17 @@
+{
+  "name": "exojs",
+  "version": "1.0.0",
+  "description": "A tiny & concise DOM manipulation library. Abstracts html blocks as a data model for easy DOM updates & interaction.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx webpack --watch"
+  },
+  "author": "Ian Chouinard",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-loader": "^7.1.5",
+    "babel-minify-webpack-plugin": "^0.3.1",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.9"
+  }
+}

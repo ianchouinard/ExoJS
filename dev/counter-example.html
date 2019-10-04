@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ExoJS testing</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
+        body {
+            background: #f2f2f2;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 10px 0 0 0;
+            font-size: 16px;
+            color: #282828;
+            text-align: center;
+        }
+
+        [data-exo-component="counter"] {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            margin: 15px auto;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+            border-radius: 4px;
+        }
+
+        [data-exo-component="counter"]>div div {
+            font-weight: 700;
+            font-size: 21px;
+        }
+
+        button {
+            background: #2890EB;
+            color: #fff;
+            border: none;
+            outline: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            height: 28px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <h1>
+        Basic counter with ExoJS
+    </h1>
+
+    <div data-exo-component="counter">
+        <div>
+            <div data-model="count" data-type="int">
+                1
+            </div>
+
+            <button data-action="onclick:increaseCount">
+                Increase
+            </button>
+        </div>
+    </div>
+
+    <script src="ExoJS.dev.js"></script>
+    <script>
+        class Counter extends ExoJS {
+
+            increaseCount(e) {
+                e.preventDefault();
+                this.model.count += 1;
+                this.update('count');
+            }
+
+        }
+
+        const counter = new Counter('counter');
+        counter.attach();
+    </script>
+</body>
+
+</html>

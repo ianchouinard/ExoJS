@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ExoJS testing</title>
+</head>
+
+<body>
+    <div data-exo-component="test-app" id="test-app">
+
+        <div data-model="count" data-type="int">
+            1
+        </div>
+
+        <button data-action="onclick:upCount">
+            Add Value
+        </button>
+
+        <div data-model="name">
+            Name goes here
+        </div>
+
+        <input type="text" data-action="onkeyup:setName" />
+
+        <div data-if="done">
+            Complete
+        </div>
+
+        <div data-if="!done">
+            To Do
+        </div>
+
+        <input type="checkbox" data-model="done" checked data-action="onchange:setStatus" />
+
+        <div data-foreach="items">
+            <div data-item-for="items">
+                <p data-model-for="items:name">test name</p>
+                <button data-action="onclick:removeItem">remove</button>
+            </div>
+            <div data-item-for="items">
+                <p data-model-for="items:name">test name 2</p>
+                <button data-action="onclick:removeItem">remove</button>
+            </div>
+        </div>
+
+        <button data-action="onclick:testAdd">
+            Test add item to items
+        </button>
+
+        <hr />
+
+        <div data-if="twoSelected">
+            You selected two
+        </div>
+
+        <div data-if="!twoSelected">
+            You didn't selected two
+        </div>
+
+        <select data-model="menu" data-action="onchange:setMenu">
+            <option value="one">one</option>
+            <option value="two">two</option>
+        </select>
+
+        <hr />
+
+        <div data-if="test2Selected">Selected radio 2</div>
+
+        <div>
+            <label for="radio-one">Radio Test 1</label>
+            <input data-bind="option" type="radio" name="radio-test" value="radio-one"
+                data-action="onchange:onRadioChange" />
+        </div>
+        <div>
+            <label for="radio-two">Radio Test 2</label>
+            <input checked data-bind="option" type="radio" name="radio-test" value="radio-two"
+                data-action="onchange:onRadioChange" />
+        </div>
+        <div>
+            <label for="radio-three">Radio Test 3</label>
+            <input data-bind="option" type="radio" name="radio-test" value="radio-three"
+                data-action="onchange:onRadioChange" />
+        </div>
+
+    </div>
+
+
+    <script src="ExoJS.dev.js"></script>
+    <script>
+        class MyComponent extends ExoJS {
+
+            onRegister() {
+                this.model.twoSelected = false;
+                this.model.test2Selected = false;
+                this.registerIterableTemplate('items', (item) => (`
+                    <div data-item-for="items">
+                        <p data-model-for="items:name">${item.name}</p>
+                        <button data-action="onclick:removeItem">remove</button>
+                    </div>
+                `));
+            }
+
+            onReady() {
+                console.log(this.model);
+            }
+
+            upCount(e) {
+                e.preventDefault();
+                this.model.count += 1;
+                this.update('count');
+            }
+
+            setName(e) {
+                this.model.name = e.target.value;
+                this.update('name');
+            }
+
+            setStatus(e) {
+                this.model.done = e.target.checked;
+                this.update('done');
+            }
+
+            testAdd(e) {
+                e.preventDefault();
+                this.model.items.push({
+                    name: this.model.name
+                });
+                this.update('items');
+            }
+
+            setMenu(e) {
+                this.model.menu = e.target.value;
+                this.model.twoSelected = (this.model.menu === 'two');
+
+                this.update('menu')
+            }
+
+            removeItem(e, item, itemIndex) {
+                e.preventDefault();
+                this.model.items.splice(itemIndex, 1);
+                this.update('items');
+            }
+
+            onRadioChange(e) {
+                this.model.option = e.target.value;
+                this.model.test2Selected = this.model.option === 'radio-two';
+                this.update('option')
+            }
+
+        }
+
+        const component = new MyComponent('test-app');
+        component.attach();
+    </script>
+</body>
+
+</html>
