@@ -1,5 +1,5 @@
 # ExoJS
-A tiny & concise DOM manipulation library. Abstracts html blocks as a data model for easy DOM updates & interaction. Currently in Beta, use at your own risk.
+A tiny & concise DOM manipulation library. Abstracts html blocks as a data model for easy DOM updates & interaction. **Still in early development and not fully tested yet. Use at your own risk (or not at all yet)**
 
 ## What This Is
 ExoJS allows developers to use data attributes and simple javascript to define a block of html as an ExoJS component. ExoJS then creates a javascript object model for the component and provides abstraction for DOM manipulation (events, updating HTML) so developers can quickly add interactive layers on top of their HTML. Rather than manually querying the DOM and updating HTML, all developers need to do is update the component's model and inform the component class to update. ExoJS does not interfere with normal DOM manipulation APIs and can be be used in conjuction with your other javascript.
