@@ -38,6 +38,7 @@ ExoJS is not an full mvm, mvc, spa library or framework. Use ExoJS if you want t
 
 ### More Examples
 [Todo list](https://jsfiddle.net/ianchouinard/nd7640tx/92/)
+
 [Form validation](https://jsfiddle.net/ianchouinard/fohpq52j/)
 
 ## Full Documentation In Progress
