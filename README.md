@@ -43,6 +43,13 @@ ExoJS is not an full mvm, mvc, spa library or framework. Use ExoJS if you want t
 
 ## Full Documentation In Progress
 
+## Installation.
+*Npm package will be avaialble with an eventual v1*
+
+For now, ExoJS.js can be downloaded from the repo and placed into your project.
+
+You can also reference it from a script tag via https://cdn.jsdelivr.net/gh/ianchouinard/ExoJS@master/ExoJS.js
+
 ## Note On Project Status
 Although I've developed this and have been using this in some personal projects, this project is still in beta. I welcome any bug reports. I also welcome suggestions related to syntax, ease of use, performace, etc. I'm not open to the scope of this project increasing. My goal for this project is for the scope to not increase outside of abstracting DOM manipulation.
 
