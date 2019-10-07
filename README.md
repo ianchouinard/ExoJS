@@ -41,9 +41,10 @@ ExoJS is not an full mvm, mvc, spa library or framework. Use ExoJS if you want t
 
 [Form validation](https://jsfiddle.net/ianchouinard/fohpq52j/)
 
-## Full Documentation In Progress
+## Full Documentation
+*In progress*
 
-## Installation.
+## Installation
 *Npm package will be avaialble with an eventual v1*
 
 For now, ExoJS.js can be downloaded from the repo and placed into your project.
