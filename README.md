@@ -43,6 +43,11 @@ ExoJS is not an full mvm, mvc, spa library or framework. Use ExoJS if you want t
 
 ## Full Documentation
 *In progress*
+[Basic Usage](https://github.com/ianchouinard/ExoJS/blob/master/docs/BasicUsage.md)
+
+[HTML Attribute Reference](https://github.com/ianchouinard/ExoJS/blob/master/docs/HtmlAttributesReference.md)
+
+[JavaScript class API reference](https://github.com/ianchouinard/ExoJS/blob/master/docs/ApiReference.md)
 
 ## Installation
 *Npm package will be avaialble with an eventual v1*
