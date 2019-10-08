@@ -50,7 +50,7 @@ class MyComponent extends ExoJS {
 
         // Calling update will update the text value of any
         // <div data-model="foo"> in the HTML component to be 'bar'.
-        this.model.update('foo');
+        this.update('foo');
     }
 
 }
