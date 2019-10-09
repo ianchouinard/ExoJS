@@ -16,7 +16,7 @@ class ExoJS {
 	}
 
 	attach() {
-		this.component = document.querySelector(`[data-exo-component="${this.appId}"]`);
+	this.component = document.querySelector(`[data-exo-component="${this.appId}"]`);
 
 		if (!this.component) {
 			return;
