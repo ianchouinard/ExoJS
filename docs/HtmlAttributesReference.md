@@ -2,12 +2,17 @@
 
 ### data-exo-component
 Unique key used to identify a component. Should only be used on the outermost wrapper of an ExoJS component.
+```html
+<div data-exo-component="hello-world">...</div>
+```
 
 ---
 
 ### data-model
 Defines the text value of an element as as model property for the component. Anything defined with data-model will be available in the component class as this.model[key you defined in data-model].
-
+```html
+<div data-model="foo">Bar</div>
+```
 ---
 
 ### data-type
@@ -24,7 +29,10 @@ For example...
 
 ### data-if
 Defines the condition for if an element should be hidden or visible. The value for this attribute should be a boolean property on the components model.
-
+```html
+<div data-if="showError">Form is invalid</div>
+<div data-if="!showError">Form is valid</div>
+```
 ---
 
 ### data-action
@@ -61,7 +69,9 @@ class ActionInListExample extends ExoJS {
 
 ### data-foreach
 Defines the start of a list or loop of items. Value should be the key of a property in the component's model that is an array.
-
+```html
+    <div data-foreach="items"></div>
+```
 ---
 
 ### data-item-for
